@@ -1,0 +1,34 @@
+section.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    li
+      a(data-ui-sref='organizations.details({ organizationId: organization._id })')
+        i.icon-home
+        = ' {{ organization.name }}'
+    li
+      a(data-ui-sref='organizations.details.divisions({ organizationId: organization._id })')
+        i.icon-list-ul
+        = ' All Divisions'
+    li
+      | {{ division.name }}
+
+  div.panel
+    header.panel-heading
+      span.pull-right
+        a(data-ui-sref='organizations.details.divisions.details.edit({ organizationId: organization._id, divisionId: divisionId })')
+          = ' '
+          i.icon-edit
+          = ' '
+      span.h5 Division
+    .panel-body
+      small.text-uc.text-xs.text-muted Name
+      p {{ division.name }}
+      small.text-uc.text-xs.text-muted Address
+      p {{ division.address }}
+
+      // instances
+      div.panel
+        header.panel-heading
+          a.h5(data-ui-sref='organizations.details.divisions.details.instances({ organizationId: organization._id, divisionId: divisionId })') Instances
+        .panel-body
+          include ../instances/_list

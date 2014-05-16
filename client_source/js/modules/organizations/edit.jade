@@ -1,0 +1,16 @@
+include _form-fields
+
+section.wrapper(data-ng-init='findOne()')
+  form.form-horizontal(data-ng-submit='update()', novalidate='novalidate', name='organizationForm')
+    section.panel
+      header.panel-heading
+        span.h4 Edit Organization
+
+    mixin organizationFormFields('organization')
+
+    section.panel
+      footer.panel-footer.text-right.bg-light.lter
+        button.btn.btn-primary(type='submit', data-ng-disabled='organizationForm.$invalid') Save
+
+    section.panel
+      pre.debug {{organization|json}}

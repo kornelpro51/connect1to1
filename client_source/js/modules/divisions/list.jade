@@ -1,0 +1,37 @@
+.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    li
+      a(data-ui-sref='organizations.details({ organizationId: organization._id })')
+        i.icon-home
+        | {{ organization.name }}
+    li Divisions
+
+  header.panel-heading
+    button.btn.btn-white.btn-xs.pull-right(data-ng-click="toggleAddDivisionForm()")
+      i.icon-plus-sign
+      | Add
+    span.h4 Divisions
+  .panel-body
+
+    form.form-horizontal(data-ng-show="isAddDivisionFormVisible", name="newDivisionForm", novalidate="novalidate")
+      div.form-group
+        label.col-sm-2.control-label New Division
+      div.form-group
+        label.col-sm-2.control-label Name
+        div.col-sm-10
+          input.form-control(type="text", data-ng-model="newDivision.name", required="required")
+      div.line.line-dashed.line-lg.pull-in
+      div.form-group
+        label.col-sm-2.control-label Address
+        div.col-sm-10
+          textarea.form-control(type="text", data-ng-model="newDivision.address", required="required")
+          span.help-block.m-b-none A block of help text that breaks onto a new line and may extend beyond one line.
+      div.line.line-dashed.line-lg.pull-in
+      div.form-group
+        div.col-sm-4.col-sm-offset-2
+          button.btn.btn-white(type="button", data-ng-click="toggleAddDivisionForm()") Cancel
+          = ' '
+          button.btn.btn-primary(type="submit", data-ng-click="addDivision()", data-ng-disabled="newDivisionForm.$invalid") Save changes
+
+    include _list

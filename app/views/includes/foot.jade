@@ -1,0 +1,94 @@
+script(src='/lib/requirejs/require.js', data-main='/js/main.js')
+script.
+  // let Angular know that we're bootstrapping manually
+  // https://github.com/angular/angular.js/commit/603fe0d19608ffe1915d8bc23bf412912e7ee1ac
+  window.name = "NG_DEFER_BOOTSTRAP!";
+
+  /**
+   * configure RequireJS
+   * prefer named modules to long paths, especially for version mgt
+   * or 3rd party libraries
+   */
+  require.config({
+
+    paths: {
+      /* named modules for src */
+      'angular'               : '../lib/angular/angular',
+      'angular-bootstrap'     : '../lib/angular-bootstrap/ui-bootstrap',
+      'angular-bootstrap-tpls': '../lib/angular-bootstrap/ui-bootstrap-tpls',
+      'angular-cookies'       : '../lib/angular-cookies/angular-cookies',
+      'angular-resource'      : '../lib/angular-resource/angular-resource',
+      'angular-ui-router'     : '../lib/angular-ui-router/release/angular-ui-router',
+      'angular-ui-select2'    : '../lib/angular-ui-select2/src/select2',
+      'angular-ui-utils-route': '../lib/angular-ui-utils/modules/route/route',
+      'angular-ui-calendar'   : '../lib/angular-ui-calendar/src/calendar',
+      'angular-ui-validate'   : '../lib/angular-ui-utils/modules/validate/validate',
+      'async'                 : '../lib/requirejs-plugins/src/async',
+      'domReady'              : '../lib/requirejs-domready/domReady',
+      'jquery'                : '../lib/jquery/jquery',
+      'jqueryui'              : '../lib/jquery-ui/ui/jquery-ui',
+      'underscore'            : '../lib/underscore/underscore',
+      'text'                  : '../lib/requirejs-text/text',
+      'select2'               : '../lib/select2/select2',
+      'twbootstrap'           : '../lib/bootstrap-assets/js/bootstrap',
+      'fuelux'                : '../lib/fuelux/fuelux',
+      'fullcalendar'          : '../lib/fullcalendar/fullcalendar',
+    },
+
+    /**
+     * for libs that either do not support AMD out of the box, or
+     * require some fine tuning to dependency mgt'
+     */
+    shim: {
+      'twbootstrap': {
+        deps: ['jquery']
+      },
+      'angular': {
+        exports: 'angular',
+        deps: ['jquery', 'jqueryui', 'underscore']
+      },
+      'angular-bootstrap': {
+        deps: ['angular', 'twbootstrap', 'angular-bootstrap-tpls']
+      },
+      'angular-bootstrap-tpls': {
+        deps: ['angular']
+      },
+      'angular-ui-router': {
+        deps: ['angular']
+      },
+      'angular-ui-utils-route': {
+        deps: ['angular']
+      },
+      'angular-ui-select2': {
+        deps: ['angular', 'select2']
+      },
+      'angular-ui-calendar': {
+        deps: ['angular', 'fullcalendar']
+      },
+      'angular-ui-validate': {
+        deps: ['angular', 'jquery']
+      },
+      'select2': {
+        deps: ['jquery']
+      },
+      'angular-cookies': {
+        deps: ['angular']
+      },
+      'angular-mocks': {
+        deps: ['angular']
+      },
+      'angular-resource': {
+        deps: ['angular']
+      },
+      'fuelux': {
+        deps: ['jquery']
+      },
+      'jqueryui':{
+        exports: 'jqueryui',
+        deps: ['jquery']
+      },
+      underscore: {
+        exports: '_'
+      }
+    }
+  });

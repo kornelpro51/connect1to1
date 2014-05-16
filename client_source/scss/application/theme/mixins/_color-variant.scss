@@ -1,0 +1,19 @@
+@mixin color-variant($color: #555, $lt-percent: 10%, $lter-percent: 15%, $dk-percent: 10%, $dker-percent: 15%) {
+  background-color: $color;
+  &.lt,
+  .lt {
+    background-color: lighten($color, $lt-percent);
+  }
+  &.lter,
+  .lter {
+    background-color: lighten($color, $lter-percent);
+  }
+  &.dk,
+  .dk {
+    background-color: darken($color, $dk-percent);
+  }
+  &.dker,
+  .dker {
+    background-color: darken($color, $dker-percent);
+  }
+}

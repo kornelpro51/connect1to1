@@ -1,0 +1,63 @@
+mixin instanceFormFields(model)
+  .form-group
+    label.col-sm-2.control-label Name
+    .col-sm-10
+      input.form-control(type="text", data-ng-model= "#{model}.name", required="required")
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label URL Code
+    .col-sm-10
+      input.form-control(type="text", data-ng-model="#{model}.urlCode", required="required")
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label Tagline
+    .col-sm-10
+      textarea.form-control(type="text", data-ng-model="#{model}.tagline", required="required")
+      span.help-block.m-b-none A block of help text that breaks onto a new line and may extend beyond one line.
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label Welcome e-mail text
+    .col-sm-10
+      textarea.form-control(type="text", data-ng-model="#{model}.welcomeEmailText", required="required")
+      span.help-block.m-b-none A block of help text that breaks onto a new line and may extend beyond one line.
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label(for='users') Users
+    .col-sm-10
+      input#users(
+        data-ui-select2='usersSelect2Options',
+        data-ng-model='#{model}.users',
+        data-placeholder='Pick users',
+        multiple
+      )
+    div(data-form-error='data-form-error', data-field-name='#{model}.users', data-errors='errors')
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label(for='primaryUser') Primary User
+    .col-sm-10
+      input#primaryUser(
+        data-ui-select2='primaryUserSelect2Options',
+        data-ng-model='#{model}.primaryUser',
+        data-placeholder='Choose user'
+      )
+    div(data-form-error='data-form-error', data-field-name='#{model}.primaryUser', data-errors='errors')
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label Conditions
+    .col-sm-10
+      input#conditions(
+        data-ui-select2='conditionsSelect2Options',
+        data-ng-model='#{model}.conditions',
+        data-placeholder='Choose conditions',
+        multiple
+      )
+  .line.line-dashed.line-lg.pull-in
+  .form-group
+    label.col-sm-2.control-label Procedures
+    .col-sm-10
+      input#procedures(
+        data-ui-select2='proceduresSelect2Options',
+        data-ng-model='#{model}.procedures',
+        data-placeholder='Choose procedures',
+        multiple
+      )

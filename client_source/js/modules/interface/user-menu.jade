@@ -1,0 +1,52 @@
+.bg-success.nav-user.hidden-xs.pos-rlt
+  .nav-avatar.pos-rlt
+    a.thumb-sm.avatar.animated.rollIn(href='#', data-toggle='dropdown')
+      img(src='assets/images/tmp/avatar.jpg', alt='')
+      span.caret.caret-white
+    ul.dropdown-menu.m-t-sm.animated.fadeInLeft
+      li
+        a(href='#') {{ global.user.name }}
+      li
+        a(href='#')
+          i.icon-group
+          | {{ global.user.role }}
+      span.arrow.top
+      li
+        a(href='#') Settings
+      li
+        a(href='#') Profile
+      li
+        a(href='#')
+          span.badge.bg-danger.pull-right 3
+          | Notifications
+      li.divider
+      li
+        a(href='/signout') Logout
+    .nav-msg
+      a.dropdown-toggle(href='#', data-toggle='dropdown')
+        b.badge.badge-white.count-n 2
+      section.dropdown-menu.m-l-sm.pull-left.animated.fadeInRight
+        .arrow.left
+        section.panel.bg-white
+          header.panel-heading
+            strong
+              | You have
+              span.count-n 2
+              | notifications
+          .list-group
+            a.media.list-group-item(href='#')
+              span.pull-left.thumb-sm
+                img.img-circle(src='assets/images/tmp/avatar.jpg', alt='John said')
+              span.media-body.block.m-b-none
+                | Use awesome animate.css
+                br
+                small.text-muted 28 Aug 13
+            a.media.list-group-item(href='#')
+              span.media-body.block.m-b-none
+                | 1.0 initial released
+                br
+                small.text-muted 27 Aug 13
+          footer.panel-footer.text-sm
+            a.pull-right(href='#')
+              i.icon-cog
+            a(href='#') See all the notifications

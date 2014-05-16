@@ -1,0 +1,34 @@
+include ../users/_list
+
+section.wrapper(data-ng-init='findOne()')
+  section.panel
+    header.panel-heading
+      span.h4 {{ organization.name }}
+      a.pull-right(data-ui-sref='organizations.details.edit({ organizationId: organization._id })') edit
+    .panel-body
+      p
+        span.h5 Address:
+        |  {{ organization.address }}
+
+  // divisions
+  section.panel
+    header.panel-heading
+      a.h5(data-ui-sref='organizations.details.divisions({ organizationId: organization._id })') Divisions
+    .panel-body
+      include ../divisions/_list
+
+  // primary user
+  section.panel
+    header.panel-heading
+      a.h5(data-ui-sref='organizations.users({ organizationId: organization._id })') Primary User 
+    .panel-body
+      ul.list-group.alt
+        li.list-group-item
+          mixin userListItem('organization.primaryUser')
+
+  // users
+  section.panel
+    header.panel-heading
+      span.h5 Users
+    .panel-body
+      mixin userList('organization.users')

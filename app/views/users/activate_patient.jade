@@ -1,0 +1,30 @@
+extends ../layouts/default
+
+block content
+    .col-lg-12
+        form.signup.form-horizontal(action="/patients/user/#{patient._id}/#{activation_code}", method="post", role="form")
+            input#activation_code(type='hidden', name='activation_code', value=activation_code)
+            .form-group
+                label.col-lg-2.control-label(for="name") Full name
+                .col-lg-10
+                    input.form-control(type="text", placeholder="Full name", value=patient.name, disabled)
+                    input.form-control#name(type="hidden", name="name", value=patient.name)
+
+            .form-group
+                label.col-lg-2.control-label(for="email") Email
+                .col-lg-10
+                    input.form-control(type="email", placeholder="Email", value=patient.email, disabled)
+                    input#email(type="hidden", name="email", value=patient.email)
+            .form-group
+                label.col-lg-2.control-label(for="username") Username
+                .col-lg-10
+                    input.form-control#username(type="text", name="username", placeholder="Username", value=patient.username)
+
+            .form-group
+                label.col-lg-2.control-label(for="password") Password
+                .col-lg-10
+                    input.form-control#password(type="password", name="password", placeholder="Password")
+
+            .form-group
+                .col-lg-offset-2.col-lg-10
+                    button.btn.btn-primary(type="submit") Sign up

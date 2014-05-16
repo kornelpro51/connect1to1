@@ -1,0 +1,46 @@
+!!! 5
+html(lang='en', xmlns='http://www.w3.org/1999/xhtml', xmlns:fb='https://www.facebook.com/2008/fbml', itemscope='itemscope', itemtype='http://schema.org/Product')
+  include ../includes/head
+  body
+    section.hbox.stretch(data-ng-controller="GlobalController")
+      // .aside
+      aside.bg-primary.aside-sm#nav
+        section.vbox
+
+          header.dker.nav-bar.nav-bar-fixed-top
+            a.btn.btn-link.visible-xs(data-toggle="class:nav-off-screen", data-target="#nav")
+              i.icon-reorder
+            a.nav-brand(data-ng-href="{{ brandLink }}") 1-to-1
+            a.btn.btn-link.visible-xs(data-toggle="class:show", data-target=".nav-user")
+              i.icon-comment-alt
+
+          section.w-f
+
+            // user
+            div.ng-cloak(data-ng-if="global.authenticated")
+              div.bg-success.nav-user.hidden-xs.pos-rlt(data-ng-include="'/js/modules/interface/user-menu.html'")
+
+            // nav
+            nav.nav-primary.hidden-xs(data-ng-include="'/js/modules/interface/main-menu.html'")
+
+            // notification
+            div.ng-cloak.bg-danger.wrapper.hidden-vertical.animated.fadeInUp.text-sm
+              a.pull-right.m-r-n-sm.m-t-n-sm(href="#", data-dismiss="alert")
+                i.icon-close.icon-remove
+              | Hi, welcome&nbsp;to Connect&nbsp;1-to-1.
+
+          footer.footer.bg-gradient.hidden-xs
+            a.btn.btn-sm.btn-link.m-r-n-xs.pull-right(href="modal.lockme.html", data-toggle="ajaxModal")
+              i.icon-off
+            a.btn.btn-sm.btn-link.m-l-n-sm(href="#nav", data-toggle="class:nav-vertical")
+              i.icon-reorder
+
+      section#content
+        section.vbox
+          // header.header.bg-white.b-b
+            p Welcome to todo application
+          section.scrollable.wrapper
+            div.row
+              block content
+
+    include ../includes/foot

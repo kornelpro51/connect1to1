@@ -1,0 +1,25 @@
+ul.nav(data-ng-controller='MainMenuController')
+  li(data-ng-repeat='item in menu', data-ui-route='{{ item.link }}', data-ng-class='{ active: $uiRoute }')
+    a(href='{{ item.link }}')
+      b.badge.pull-right(data-ng-class='{ \'bg-primary\': item.badge.active }') {{ item.badge.text }}
+      i(data-ng-show='item.icon', data-ng-class='item.icon')
+      span {{ item.text }}
+    li(data-ng-repeat='item in authMenu')
+      a(href='{{ item.link }}')
+        i(data-ng-show='item.icon', data-ng-class='item.icon')
+        span {{ item.text }}
+  //
+     In order to have second menu level in dropdown repeat this pattern:
+        li.dropdown-submenu
+          a.dropdown-toggle(href="#", data-toggle="dropdown")
+            i.icon-beaker
+            span UI kit
+          ul.dropdown-menu
+            li
+              a(href="buttons.html") Buttons
+            li
+              a(href="icons.html")
+                b.badge.pull-right 302
+                | Icons
+            li
+              a(href="grid.html") Grid

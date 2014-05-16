@@ -1,0 +1,28 @@
+include _instance-form-fields
+
+.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    include _breadcrumbs
+    li Instances
+
+  header.panel-heading
+    button.btn.btn-white.btn-xs.pull-right(data-ng-click="toggleAddInstanceForm()")
+      i.icon-plus-sign
+      | Add
+    span.h4 Instances
+  .panel-body
+    // create form
+    form.form-horizontal(data-ng-show="isAddInstanceFormVisible", name="InstanceForm", novalidate="novalidate")
+      .form-group
+        label.col-sm-2.control-label New Instance
+
+      mixin instanceFormFields('newInstance')
+
+      .form-group
+        .col-sm-4.col-sm-offset-2
+          button.btn.btn-white(type="button", data-ng-click="toggleAddInstanceForm()") Cancel
+          = ' '
+          button.btn.btn-primary(type="submit", data-ng-click="addInstance()", data-ng-disabled="InstanceForm.$invalid") Save changes
+
+    include _list

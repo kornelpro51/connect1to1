@@ -1,0 +1,53 @@
+mixin patientFormFields(model)
+    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_name.$error.required && patient_detail.patient_name.$dirty}")
+        label.col-sm-2.control-label(for="#patient_name")
+            span.text-danger *
+            | Name :
+        div.col-sm-10
+            input#patient_name.form-control(type="text", name="patient_name", ng-model="#{model}.name", required, placeholder="Patient Name")
+            div.help-inline(ng-show="patient_detail.patient_name.$error.required && patient_detail.patient_name.$dirty") Patient name is required.
+
+    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_email.$error.email && patient_detail.patient_email.$dirty}")
+        label.col-sm-2.control-label(for="#patient_email") Email :
+        div.col-sm-10
+            input#patient_email.form-control(type="email", name="patient_email", ng-model="#{model}.email", placeholder="Email Address")
+            div.help-inline(ng-show="patient_detail.patient_email.$error.email && patient_detail.patient_email.$dirty") Valid email address is required.
+    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_phone.$error.validator && patient_detail.patient_phone.$dirty}")
+        label.col-sm-2.control-label(for="#patient_phone") Phone :
+        div.col-sm-10
+            input#patient_phone.form-control(type="tel", name="patient_phone", ng-model="#{model}.phone", ui-validate=" 'validatePhone($value)' ", placeholder="XXX-XXX-XXXX")
+            div.help-inline(ng-show="patient_detail.patient_phone.$error.validator && patient_detail.patient_phone.$dirty") Valid Phone number format is required. ( XXX-XXX-XXXX )
+    div.form-group
+        label.col-sm-2.control-label(for="#patient_gender") Gender :
+        div.col-sm-10
+            select#patient_gender.form-control(name="patient_gender", ng-model="#{model}.gender", ng-options="g for g in ['Male', 'Female']")
+    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_birth.$error.date && patient_detail.patient_birth.$dirty}")
+        label.col-sm-2.control-label(for="#patient_birth") Year of birth :
+        div.col-sm-10
+            input#patient_birth.form-control(type="text", name="patient_birth", datepicker-popup="dd-MM-yyyy", ng-model="#{model}.birthdate", show-weeks="'false'", min="'1900-01-01'", max="today", datepicker-options="datepickerOptions", placeholder="DD-MM-YYYY")
+            div.help-inline(ng-show="patient_detail.patient_birth.$error.date && patient_detail.patient_birth.$dirty") Valid birthday is required.
+
+    hr
+
+    div.form-group
+        label.col-sm-2.control-label(for="patient_demographicInfo") Demographic :
+        div.col-sm-10
+            select#patient_demographicInfo.form-control(ng-model="#{model}.demographicId", ng-options="dmg.name for dmg in uiConfig.demographicInfoList")
+    div.form-group
+        label.col-sm-2.control-label(for="patient_clinicalInfo") Clinical :
+        div.col-sm-10
+            select#patient_clinicalInfo.form-control(ng-model="#{model}.clinicalId", ng-options="clc.name for clc in uiConfig.clinicalInfoList")
+
+    hr
+
+    div.form-group
+        label.col-sm-2.control-label
+        div.col-sm-10
+            div.checkbox
+                label
+                    input#set_pwd(ng-model="set_pwd", type="checkbox")
+                    | Set Password
+    div.form-group(ng-show="set_pwd")
+        label.col-sm-2.control-label
+        div.col-sm-10
+            input#newpassword.form-control(ng-model="#{model}.newpassword", type="password", placeholder="Password")

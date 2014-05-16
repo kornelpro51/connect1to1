@@ -1,0 +1,3 @@
+define([
+  './divisions-ctrl'
+], function () {});

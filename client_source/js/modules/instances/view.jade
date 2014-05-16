@@ -1,0 +1,56 @@
+include ../users/_list
+include ../users/_list-item
+
+section.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    include _breadcrumbs
+    li
+      a(data-ui-sref='organizations.details.divisions.details.instances({ organizationId: organization._id, divisionId: divisionId })')
+        i.icon-list-ul
+        | Instances
+    li {{ instance.name }}
+
+  div.panel
+    header.panel-heading
+      span.pull-right
+        a(data-ui-sref='organizations.details.divisions.details.instances.details.edit({ organizationId: organization._id, divisionId: divisionId, instanceId: instanceId })')
+          = ' '
+          i.icon-edit
+          = ' '
+      span.h5 {{ instance.name }}
+    .panel-body
+      small.text-uc.text-xs.text-muted Name
+      p {{ instance.name }}
+      small.text-uc.text-xs.text-muted URL Code
+      p {{ instance.urlCode }}
+      small.text-uc.text-xs.text-muted Tagline
+      p {{ instance.tagline }}
+      small.text-uc.text-xs.text-muted Welcome e-mail text
+      p {{ instance.welcomeEmailText }}
+      small.text-uc.text-xs.text-muted Conditions
+      ul
+        li(data-ng-repeat="item in instance.conditions") {{ item.name }}
+      small.text-uc.text-xs.text-muted Procedures
+      ul
+        li(data-ng-repeat="item in instance.procedures") {{ item.name }}
+
+  // users
+  .panel
+    header.panel-heading
+      a.h5 Users
+    .panel-body
+      mixin userList('instance.users')
+
+  // primary user
+  .panel
+    header.panel-heading
+      a.h5(data-ui-sref='organizations.users({ organizationId: organization._id })') Primary User 
+    .panel-body
+      ul.list-group.alt
+        li.list-group-item
+          mixin userListItem('instance.primaryUser')
+
+  div.panel
+    .panel-body
+      pre {{ instance | json }}

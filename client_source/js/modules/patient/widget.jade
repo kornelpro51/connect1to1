@@ -1,0 +1,181 @@
+section.wrapper(ng-controller="PatientWidgetController")
+    section#error(ng-show="errors!==''")
+        div.alert.alert-danger {{errors}}
+    section#wizard.tab-pane.active(data-ng-init="loader()")
+        div.actions.pull-right.m-t-xs.m-r
+            a.btn.btn-white.btn-sm.btn-prev(data-target="#patient-wizard", ng-click="goPrev()") Prev
+            a.btn.btn-white.btn-sm.btn-prev(data-target="#patient-wizard", ng-click="goNext()") Next
+        div#patient_wizard.wizard.clearfix
+            ul.steps
+                li.active(data-target="#step1")
+                    span.badge.bage-info 1
+                    | Step 1
+                li(data-target="#step2")
+                    span.badge.bage-info 2
+                    | Step 2
+                li(data-target="#step3")
+                    span.badge.bage-info 3
+                    | Step 3
+        div.step-content(style='background-color: white;')
+            div#step1.step-pane.active
+                form.form-horizontal(name="patient_detail")
+                    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_name.$error.required && patient_detail.patient_name.$dirty}")
+                        label.col-sm-2.control-label(for="#patient_name")
+                            span.text-danger *
+                            | Name :
+                        div.col-sm-10
+                            input#patient_name.form-control(type="text", name="patient_name", ng-model="patientInfo.name", required, placeholder="Patient Name")
+                            div.help-inline(ng-show="patient_detail.patient_name.$error.required && patient_detail.patient_name.$dirty") Patient name is required.
+                    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_email.$error.email && patient_detail.patient_email.$dirty}")
+                        label.col-sm-2.control-label(for="#patient_email") Email :
+                        div.col-sm-10
+                            input#patient_email.form-control(type="email", name="patient_email", ng-model="patientInfo.email", placeholder="Email Address")
+                            div.help-inline(ng-show="patient_detail.patient_email.$error.email && patient_detail.patient_email.$dirty") Valid email address is required.
+                    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_phone.$error.validator && patient_detail.patient_phone.$dirty}")
+                        label.col-sm-2.control-label(for="#patient_phone") Phone :
+                        div.col-sm-10
+                            input#patient_phone.form-control(type="tel", name="patient_phone", ng-model="patientInfo.phone", ui-validate=" 'validatePhone($value)' ", placeholder="XXX-XXX-XXXX")
+                            div.help-inline(ng-show="patient_detail.patient_phone.$error.validator && patient_detail.patient_phone.$dirty") Valid Phone number format is required. ( XXX-XXX-XXXX )
+                    div.form-group
+                        label.col-sm-2.control-label(for="#patient_gender") Gender :
+                        div.col-sm-10
+                            select#patient_gender.form-control(name="patient_gender", ng-model="patientInfo.gender", ng-options="g for g in ['Male', 'Female']")
+                    div.form-group(ng-class="{ 'has-error' : patient_detail.patient_birth.$error.date && patient_detail.patient_birth.$dirty}")
+                        label.col-sm-2.control-label(for="#patient_birth") Year of birth :
+                        div.col-sm-10
+                            input#patient_birth.form-control(type="text", name="patient_birth" datepicker-popup="dd-MM-yyyy", ng-model="patientInfo.birthdate", show-weeks="'false'", min="'1900-01-01'", max="'2049-12-31'", datepicker-options="datepickerOptions", placeholder="DD-MM-YYYY")
+                            div.help-inline(ng-show="patient_detail.patient_birth.$error.date && patient_detail.patient_birth.$dirty") Valid birthday is required.
+            div#step2.step-pane
+                form.form-horizontal
+                    div.form-group
+                        label.col-sm-2.control-label(for="patient_demographicInfo") Demographic :
+                        div.col-sm-10
+                            select#patient_demographicInfo.form-control(ng-model="patientInfo.demographicInfo", ng-options="dmg.name for dmg in uiConfig.demographicInfoList")
+                    div.form-group
+                        label.col-sm-2.control-label(for="patient_clinicalInfo") Clinical :
+                        div.col-sm-10
+                            select#patient_clinicalInfo.form-control(ng-model="patientInfo.clinicalInfo", ng-options="clc.name for clc in uiConfig.clinicalInfoList")
+            div#step3.step-pane.clear
+                div.col-sm-2
+                    button.btn.btn-primary(data-toogle="modal", data-target="#dlg_scheduleditor", ng-click="openScheduleDlg()") Add new schedule
+                    ul.list-group.alt
+                        li.list-group-item(ng-repeat='schedule in patientInfo.schedules')
+                            | {{schedule.title}}
+                            span.close(ng-click="removeSchedule(schedule)") &times;
+                div.col-sm-10
+                    div#scheduler(ui-calendar="uiConfig.calendar", ng-model="scheduleSource", calendar="schedule")
+
+    div#dlg_scheduleditor.modal.fade
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    button.close(data-dismiss="modal", aria-hidden="true") &times;
+                    h4.modal-title Edit your schedule
+                div.modal-body
+                    form#schedule_editor.form-horizontal(name="schedule_editor", rol="form")
+                        div.form-group
+                            label.col-sm-2.control-label
+                                span.text-danger *
+                                | Title
+                            div.col-sm-10
+                                input#sch_title.form-control(name="sch_title", ng-model="schInfo.title", type="text", required)
+                        div.form-group
+                            label.col-sm-2.control-label Description
+                            div.col-sm-10
+                                input#sch_description.form-control(name="sch_description", ng-model="schInfo.description", type="text")
+                        div.form-group
+                            label.col-sm-2.control-label Start
+                            div.col-sm-4
+                                div.a-ui-picker.form-inline(name="schInfo_start_time",ng-model="schInfo.start")
+                                    timepicker(hour-step="'1'", minute-step="'1'", show-meridian="'true'")
+                            label.col-sm-1.control-label End
+                            div.col-sm-4
+                                div.a-ui-picker.form-inline(name="schInfo_end_time",ng-model="schInfo.end")
+                                    timepicker(hour-step="'1'", minute-step="'1'")
+                        div.form-group
+                            label.col-sm-2.control-label
+                            div.col-sm-10
+                                div.checkbox
+                                    label
+                                        input#sch_allday(name="sch_allday", ng-model="schInfo.allDay", type="checkbox")
+                                        | All Day
+                        div.form-group
+                            label.col-sm-2.control-label Recurcive Type
+                            div.col-sm-10.form-inline
+                                div.radio.m-r
+                                    label
+                                        input(ng-model="schInfo.recursiveType", value="none", type="radio")
+                                        | None
+                                div.radio.m-r
+                                    label
+                                        input(ng-model="schInfo.recursiveType", value="daily", type="radio")
+                                        | Daily
+                                div.radio.m-r
+                                    label
+                                        input(ng-model="schInfo.recursiveType", value="weekly", type="radio")
+                                        | Weekly
+                                div.radio.m-r
+                                    label
+                                        input(ng-model="schInfo.recursiveType", value="monthly", type="radio", disabled)
+                                        | Monthly
+                                div.radio.m-r
+                                    label
+                                        input(ng-model="schInfo.recursiveType", value="yearly", type="radio", disabled)
+                                        | Yearly
+                        div.form-group(ng-show="schInfo.recursiveType=='none'")
+                            label.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Date
+                                div.col-sm-9
+                                    input#sch_single_date.form-control(name="sch_single_date",type="text", datepicker-popup="dd-MM-yyyy", ng-model="schInfo.recursiveStart", show-weeks="'false'", min="'1970-01-01'", max="'2049-12-31'", datepicker-options="datepickerOptions")
+
+                        div.form-group(ng-show="schInfo.recursiveType=='daily'")
+                            div.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Every
+                                div.col-sm-9.form-inline
+                                    input#sch_rcs_date.form-control(name="sch_rcs_date", ng-model="schInfo.recursiveDate", type="number", style="width: 80px;")
+                                    | days
+                        div.form-group(ng-show="schInfo.recursiveType=='weekly'")
+                            div.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Every
+                                div.col-sm-9.form-inline
+                                    input#sch_rcs_week.form-control(name="sch_rcs_week", ng-model="schInfo.recursiveWeek", type="number", style="width: 80px;")
+                                    | weeks
+                        div.form-group(ng-show="schInfo.recursiveType=='monthly'")
+                            div.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Every
+                                div.col-sm-9.form-inline
+                                    input#sch_rcs_month.form-control(name="sch_rcs_month", ng-model="schInfo.recursiveMonth", type="number", style="width: 80px;")
+                                    | months
+                        div.form-group(ng-show="schInfo.recursiveType=='yearly'")
+                            div.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Every
+                                div.col-sm-9.form-inline
+                                    input#sch_rcs_year.form-control(name="sch_rcs_year", ng-model="schInfo.recursiveYear", type="number", style="width: 80px;")
+                                    | years
+                        div.form-group(ng-show="schInfo.recursiveType!='none'")
+                            label.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label Start Date
+                                div.col-sm-9
+                                    input#sch_rcs_start.form-control(name="sch_rcs_start",type="text", datepicker-popup="dd-MM-yyyy", ng-model="schInfo.recursiveStart", show-weeks="'false'", min="'1970-01-01'", max="'2049-12-31'", datepicker-options="datepickerOptions")
+                        div.form-group(ng-show="schInfo.recursiveType!='none'")
+                            label.col-sm-2.control-label
+                            div.col-sm-10
+                                label.col-sm-3.control-label End Date
+                                div.col-sm-9
+                                    input#sch_rcs_end.form-control(name="sch_rcs_end", type="text", datepicker-popup="dd-MM-yyyy", ng-model="schInfo.recursiveEnd", show-weeks="'false'", min="'1970-01-01'", max="'2049-12-31'", datepicker-options="datepickerOptions")
+                    div.modal-footer
+                        button.btn.btn-primary.pull-left(ng-click="createSchedule(schedule_editor)") Create
+                        button.btn.btn-primary.pull-left(ng-click="resetSchedule()") Reset
+                        button.btn(data-dismiss="modal", aria-hidden="true") Close
+
+    div#dlg_loading.modal.fade
+        div.modal-dialog
+            div.modal-content
+                div.modal-body.text-center
+                    img(src="/assets/images/sending_bar.gif")

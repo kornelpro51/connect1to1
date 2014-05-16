@@ -1,0 +1,10 @@
+section.col-sm-6.col-sm-offset-3(data-ng-init='findOne()')
+  form.form-horizontal(data-ng-submit='update()')
+    section.panel
+      header.panel-heading
+        span.h4 Edit Attribute
+      .panel-body
+        include _form-fields
+
+      footer.panel-footer.text-right.bg-light.lter
+        button.btn.btn-primary(type='submit') Save

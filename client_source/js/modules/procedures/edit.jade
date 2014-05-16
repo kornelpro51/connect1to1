@@ -1,0 +1,23 @@
+section.col-sm-6.col-sm-offset-3(data-ng-init='findOne()')
+  form.form-horizontal(data-ng-submit='update()', novalidate='novalidate')
+    section.panel
+      header.panel-heading
+        span.h4 Edit Procedure
+      .panel-body
+        .form-group
+          label.col-lg-2.control-label(for='name') Name
+          .col-lg-10
+            input#name.form-control(type='text', data-ng-model='procedure.name', placeholder='Name', required='required')
+        .form-group
+          label.col-lg-2.control-label(for='attributes') Attributes
+          .col-lg-10
+            input#attributes(
+              data-ng-model='procedure.attributes',
+              data-placeholder='Choose some attributes',
+              data-ui-select2='attributesSelect2Options',
+              multiple='multiple',
+              required
+            )
+      footer.panel-footer.text-right.bg-light.lter
+        button.btn.btn-primary(type='submit', data-ng-click='update()') Save
+      pre.debug {{ procedure | json }}

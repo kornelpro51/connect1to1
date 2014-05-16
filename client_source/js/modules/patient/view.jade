@@ -1,0 +1,19 @@
+
+section.col-sm-6.col-sm-offset-3(data-ng-init='findOne()')
+    section.panel
+        header.panel-heading
+            span.h4 {{ patient.name }}
+            a.pull-right(data-ui-sref='patients.details.edit({ patientId: patient._id })') edit
+        div.panel-body
+            div ID: {{ patient._id }}
+            div Name: {{ patient.name }}
+            div Birthday: {{ patient.birthdate }}
+            div Gender: {{ patient.gender }}
+            div Email: {{ patient.email }}
+            div Phone: {{ patient.phone }}
+            hr
+            div Demographic: {{ patient.demographicId.name }}
+            div Clinical: {{ patient.clinicalId.name }}
+
+        //footer.panel-body
+            a.btn.btn-primary.pull-right(ng-click='resendActivationEmail()') Resend Activation Email

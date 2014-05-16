@@ -1,0 +1,26 @@
+
+mixin userListItem(user, showActions)
+  .media
+    .pull-left.text-success.m-t-sm
+      i.icon-circle
+    if showActions
+      .pull-right.text-success.m-t-sm
+        a(data-ui-sref='organizations.details.users.details({ organizationId: organization._id, userId: $index })')
+          = ' '
+          i.icon-eye-open
+          = ' '
+        = ' '
+        a(data-ui-sref='organizations.details.users.details.edit({ organizationId: organization._id, userId: $index })')
+          = ' '
+          i.icon-edit
+          = ' '
+    .media-body
+      div
+        a.h5(data-ui-sref='organizations.details.users.details({ organizationId: organization._id, userId: $index })') {{ #{user}.name }}
+      small.text-muted
+        | Email:
+        = ' '
+        | {{ #{user}.email }}
+      = ' '
+      small.text-muted(data-ng-if="user.instances.length")
+        | Instances: {{ #{user}.instances.length }}

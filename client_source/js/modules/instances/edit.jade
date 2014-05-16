@@ -1,0 +1,34 @@
+include _instance-form-fields
+
+.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    include _breadcrumbs
+    li
+      a(data-ui-sref='organizations.details.divisions.details.instances({ organizationId: organization._id, divisionId: divisionId })')
+        i.icon-list-ul
+        | Instances
+    li
+      | {{ instance.name }}
+
+  div.panel
+    header.panel-heading
+      span.pull-right
+        a(data-ui-sref='organizations.details.divisions.details.instances.details({ organizationId: organization._id, divisionId: divisionId, instanceId: instanceId })')
+          = ' '
+          i.icon-eye-open
+          = ' '
+      span.h5 Edit Instance
+
+    .panel-body
+      form.form-horizontal(data-ng-submit="update()", novalidate="novalidate")
+
+        mixin instanceFormFields('instance')
+
+        div.form-group
+          div.col-sm-4.col-sm-offset-2
+            button.btn.btn-white(type="button") Cancel
+            = ' '
+            button.btn.btn-primary(type="submit") Save changes
+
+      pre {{ instance | json }}

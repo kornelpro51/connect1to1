@@ -1,0 +1,49 @@
+section.col-sm-12(data-ng-init='find()')
+  a.btn.btn-success.btn-rounded(data-toggle='button', data-ui-sref='patients.widget()')
+    i.icon-eye-open
+    |  New Patient
+  div.line
+  h1(data-ng-hide='!patients || patients.length')
+    | No patient yet.
+    br
+    | Why don't you
+    a(data-ui-sref='patients.widget()') Create One
+    | ?
+  div.col-sm-6
+    section.panel
+      header.panel-heading
+        div.input-group.text-sm
+          input.input-sm.form-control(type='text', placeholder='Search')
+          div.input-group-btn
+            button.btn.btn-sm.btn-white.dropdown-toggle(type='button', data-toggle='dropdown')
+              | Action
+              = ' '
+              span.caret
+            ul.dropdown-menu.pull-right
+              li
+                a(href='#') Action
+              li
+                a(href='#') Another action
+              li
+                a(href='#') Something else here
+              li.divider
+              li
+                a(href='#') Separated link
+      ul.list-group.alt
+        li.list-group-item(data-ng-repeat='patient in patients')
+            div.media
+            div.pull-left.text-success.m-t-sm
+              i.icon-circle
+            div.media-body
+              div
+                a.h5(data-ui-sref='patients.details({ patientId: patient._id })')
+                  | {{ patient.name }}
+              small.text-muted.m-r-sm
+                | E-Mail:
+                strong.m-l-sm {{ patient.email }}
+              small.text-muted.m-r-sm
+                | Phone:
+                strong.m-l-sm {{ patient.phone }}
+              small.text-muted.m-r-sm
+                | Gender:
+                strong.m-l-sm {{ patient.gender }}

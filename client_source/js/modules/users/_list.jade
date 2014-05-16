@@ -1,0 +1,7 @@
+include _list-item
+
+// server side partial to render users list
+mixin userList(users)
+  ul.list-group.alt
+    li.list-group-item(data-ng-repeat='user in #{users}')
+      mixin userListItem('user')

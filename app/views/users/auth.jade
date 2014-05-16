@@ -1,0 +1,17 @@
+extends ../layouts/default
+
+block content
+
+  .col-sm-6
+    section.panel
+      div.panel-body
+        if (typeof errors !== 'undefined')
+          .fade.in.alert.alert-warning.alert-block
+            button.close(type="button", data-dismiss="alert")
+              i.icon-remove
+            p       +
+              each error in errors
+                = error.type
+                br
+
+        block auth

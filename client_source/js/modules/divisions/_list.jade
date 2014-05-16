@@ -1,0 +1,26 @@
+// server side partial to render divisions list
+ul.list-group.alt
+  li.list-group-item(data-ng-repeat='item in organization.divisions')
+    .media
+      .pull-left.text-success.m-t-sm
+        i.icon-circle
+      .pull-right.text-success.m-t-sm
+        a(data-ui-sref='organizations.details.divisions.details({ organizationId: organization._id, divisionId: $index })')
+          = ' '
+          i.icon-eye-open
+          = ' '
+        = ' '
+        a(data-ui-sref='organizations.details.divisions.details.edit({ organizationId: organization._id, divisionId: $index })')
+          = ' '
+          i.icon-edit
+          = ' '
+      .media-body
+        div
+          a.h5(data-ui-sref='organizations.details.divisions.details({ organizationId: organization._id, divisionId: $index })') {{ item.name }}
+        small.text-muted
+          | Address:
+          = ' '
+          | {{ item.address }}
+        = ' '
+        small.text-muted(data-ng-if="item.instances.length")
+          | Instances: {{ item.instances.length }}

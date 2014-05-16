@@ -1,0 +1,15 @@
+include _form-fields
+section.col-sm-12
+    p.clearfix
+        a.btn.btn-primary.pull-right(data-ui-sref='patients.details({ patientId: patient._id })') Back
+
+section.col-sm-12(data-ng-init='findOne()')
+    form.form-horizontal(data-ng-submit='update()',name="patient_detail")
+        section.panel
+            header.panel-heading
+                span.h4 Edit Patient Info
+            div.panel-body(data-ng-init='loadAttributes()')
+                mixin patientFormFields('patient')
+
+            footer.panel-footer.text-right.bg-light.lter
+                button.btn.btn-primary(type='submit', data-ng-disabled='patient_detail.$invalid') Save

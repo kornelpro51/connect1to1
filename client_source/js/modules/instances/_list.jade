@@ -1,0 +1,24 @@
+// server-side partial to display list of instances
+ul.list-group.alt
+  li.list-group-item(data-ng-repeat='item in division.instances')
+    .media
+      .pull-left.text-success.m-t-sm
+        i.icon-circle
+      .pull-right.text-success.m-t-sm
+        a(data-ui-sref='organizations.details.divisions.details.instances.details({ organizationId: organization._id, divisionId: divisionId, instanceId: $index })')
+          = ' '
+          i.icon-eye-open
+          = ' '
+        = ' '
+        a(data-ui-sref='organizations.details.divisions.details.instances.details.edit({ organizationId: organization._id, divisionId: divisionId, instanceId: $index })')
+          = ' '
+          i.icon-edit
+          = ' '
+      .media-body
+        div
+          a.h5(data-ui-sref='organizations.details.divisions.details.instances.details({ organizationId: organization._id, divisionId: divisionId, instanceId: $index })') {{ item.name }}
+        small.text-muted
+          | Address:
+          = ' '
+          | {{ item.address }}
+        = ' '

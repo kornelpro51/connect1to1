@@ -1,0 +1,13 @@
+// instance page reusable breadcrumbs items
+li
+  a(data-ui-sref='organizations.details({ organizationId: organization._id })')
+    i.icon-home
+    | {{ organization.name }}
+li
+  a(data-ui-sref='organizations.details.divisions({ organizationId: organization._id })')
+    i.icon-list-ul
+    | Divisions
+li
+  a(data-ui-sref='organizations.details.divisions.details({ organizationId: organization._id, divisionId: divisionId })')
+    i.icon-file-text-alt
+    | {{ division.name }}

@@ -1,0 +1,67 @@
+mixin organizationFormFields(model)
+  
+  section.panel
+    .panel-body
+      .form-group
+        label.col-lg-2.control-label(for='name') Name
+        .col-lg-10(data-ng-class="formFieldValidationClass(organizationForm.name)")
+          input#name.form-control(type='text', data-ng-model='#{model}.name', name='name', required)
+        div(data-form-error='data-form-error', data-field-name='#{model}.name', data-errors='errors')
+      .form-group
+        label.col-lg-2.control-label(for='address') Address
+        .col-lg-10(data-ng-class="formFieldValidationClass(organizationForm.address)")
+          textarea#address.form-control(data-ng-model='#{model}.address', name='address', required)
+        div(data-form-error='data-form-error', data-field-name='#{model}.address', data-errors='errors')
+  
+  // users
+  section.panel
+    header.panel-heading
+      span.h5 Choose Users
+    .panel-body
+      .form-group
+        label.col-lg-2.control-label(for='users') Name
+        .col-lg-8
+          input#users(
+            data-ui-select2='usersSelect2Options',
+            data-ng-model='#{model}.users',
+            data-placeholder='Choose user'
+          )
+        div(data-form-error='data-form-error', data-field-name='#{model}.users', data-errors='errors')
+  
+  // primary contact
+  section.panel
+    header.panel-heading
+      span.h5 Choose Primary User
+    .panel-body
+      .form-group
+        label.col-lg-2.control-label(for='primaryUser') Name
+        .col-lg-8
+          input#primaryUser(
+            data-ui-select2='primaryUserSelect2Options',
+            data-ng-model='#{model}.primaryUser',
+            data-placeholder='Choose user'
+          )
+        div(data-form-error='data-form-error', data-field-name='#{model}.primaryUser', data-errors='errors')
+
+  // divisions
+  section.panel
+    header.panel-heading
+      a.pull-right(href='#', data-ng-click='addDivision($event)')
+        i.icon-plus-sign-alt Add one
+      span.h5 Define Divisions
+    .panel-body
+      ul.list-group.alt
+        li.list-group-item(data-ng-repeat='division in organization.divisions')
+          .media(data-ng-form='divisionForm')
+            span.h5 Division # {{ $index + 1 }}
+            .form-group
+              label.col-lg-2.control-label Name
+              .col-lg-10(data-ng-class="formFieldValidationClass(divisionForm.name)")
+                input.form-control(type='text', data-ng-model='division.name', required, name='name')
+              div(data-form-error='data-form-error', data-field-name='division.name', data-errors='errors')
+            .form-group
+              label.col-lg-2.control-label Address
+              .col-lg-10(data-ng-class="formFieldValidationClass(divisionForm.address)")
+                input.form-control(type='text', data-ng-model='division.address', required, name='address')
+              div(data-form-error='data-form-error', data-field-name='division.address', data-errors='errors')
+  

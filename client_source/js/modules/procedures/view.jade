@@ -1,0 +1,11 @@
+section.col-sm-6.col-sm-offset-3(data-ng-init='findOne()')
+  section.panel
+    header.panel-heading
+      span.h4 {{ procedure.name }}
+      a.pull-right(data-ui-sref='procedures.details.edit({ procedureId: procedure._id })') edit
+    .panel-body
+      ul.list-group.alt
+        li.list-group-item(data-ng-repeat='attr in procedure.attributes')
+          .media
+            .media-body
+              | {{ attr.name }} ({{ attr.section }})

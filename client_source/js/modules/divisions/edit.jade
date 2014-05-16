@@ -1,0 +1,46 @@
+section.wrapper(data-ng-init='findOne()')
+
+  ul.breadcrumb
+    li
+      a(data-ui-sref='organizations.details({ organizationId: organization._id })')
+        i.icon-home
+        = ' {{ organization.name }}'
+    li
+      a(data-ui-sref='organizations.details.divisions({ organizationId: organization._id })')
+        i.icon-list-ul
+        = ' All Divisions'
+    li
+      | {{ division.name }}
+
+  div.panel
+    header.panel-heading
+      span.pull-right
+        a(data-ui-sref='organizations.details.divisions.details({ organizationId: organization._id, divisionId: divisionId })')
+          = ' '
+          i.icon-eye-open
+          = ' '
+      span.h5 Edit Division
+
+    .panel-body
+      form.form-horizontal(data-ng-submit="update()", novalidate="novalidate")
+
+        div.form-group
+          label.col-sm-2.control-label Name
+          div.col-sm-10
+            input.form-control(type="text", data-ng-model="division.name", required="required")
+
+        div.line.line-dashed.line-lg.pull-in
+
+        .form-group
+          label.col-sm-2.control-label Address
+          div.col-sm-10
+            textarea.form-control(type="text", data-ng-model="division.address", required="required")
+            span.help-block.m-b-none A block of help text that breaks onto a new line and may extend beyond one line.
+
+        div.line.line-dashed.line-lg.pull-in
+ 
+        .form-group
+          div.col-sm-4.col-sm-offset-2
+            button.btn.btn-white(type="button") Cancel
+            = ' '
+            button.btn.btn-primary(type="submit") Save changes

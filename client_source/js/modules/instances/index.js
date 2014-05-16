@@ -1,0 +1,3 @@
+define([
+  './instances-ctrl'
+], function () {});

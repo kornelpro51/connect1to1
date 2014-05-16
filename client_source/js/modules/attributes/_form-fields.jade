@@ -1,0 +1,22 @@
+.form-group
+  label.col-lg-2.control-label(for='name') Name
+  .col-lg-10
+    input#name.form-control(type='text', data-ng-model='attribute.name')
+  div(data-form-error='data-form-error', data-field-name='attribute.name', data-errors='errors')
+.form-group
+  label.col-lg-2.control-label(for='section') Section
+  .col-lg-10
+    select#section(data-ui-select2='data-ui-select2', data-ng-model='attribute.section')
+      option(data-ng-repeat="(key, value) in sections", value="{{ key }}") {{ value }}
+  div(data-form-error='data-form-error', data-field-name='attribute.section', data-errors='errors')
+.form-group
+  label.col-lg-2.control-label(for='type') Type
+  .col-lg-10
+    select#type(data-ui-select2='data-ui-select2', data-ng-model='attribute.type')
+      option(data-ng-repeat="(key, value) in types", value="{{ key }}") {{ value }}
+  div(data-form-error='data-form-error', data-field-name='attribute.type', data-errors='errors')
+.form-group(data-ng-show="['select', 'multiselect'].indexOf(attribute.type)!=-1")
+  label.col-lg-2.control-label(for='values') Possible values
+  .col-lg-10
+    input#values.form-control(type='text', data-ng-model='attribute.values')
+  div(data-form-error='data-form-error', data-field-name='attribute.values', data-errors='errors')

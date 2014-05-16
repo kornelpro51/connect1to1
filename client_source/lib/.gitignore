@@ -1,0 +1,12 @@
+requirejs-plugins/examples
+requirejs/tests
+requirejs/docs
+requirejs/dist
+angular-ui-router/lib
+angular-ui-router/config
+angular-ui-router/release/doc
+angular-ui-router/sample
+angular-ui-router/src
+angular-ui-router/test
+underscore/test
+underscore/docs

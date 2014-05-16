@@ -1,0 +1,9 @@
+section.col-sm-6.col-sm-offset-3(data-ng-init='findOne()')
+  section.panel
+    header.panel-heading
+      span.h4 {{ attribute.name }}
+      a.pull-right(data-ui-sref='attributes.details.edit({ attributeId: attribute._id })') edit
+    .panel-body
+      div Section: {{ attribute.section }}
+      div Type: {{ attribute.type }}
+      div(data-ng-show="['select', 'multiselect'].indexOf(attribute.type)!=-1") Values: {{ attribute.values }}
